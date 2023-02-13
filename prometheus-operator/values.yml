@@ -25,7 +25,7 @@ alertmanager:
       group_wait: 10s
       group_interval: 5m
       receiver: 'null'
-      repeat_interval: 30m
+      repeat_interval: 20m
       
       routes: 
         - receiver: am-webhook
