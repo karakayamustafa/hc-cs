@@ -1,0 +1,33 @@
+prometheus:
+  prometheusSpec:
+    ruleSelector:
+      matchLabels:
+        app: prometheus-operator
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          volumeName: prometheus-operator-pv
+          accessModes: ["ReadWriteOnce"]
+          storageClassName: prometheus-operator
+          resources:
+            requests:
+              storage: 10Gi
+
+alertmanager: 
+  config:
+    global:
+    receivers:
+      - name: 'null'
+      - name: am-webhook
+        webhook_configs:
+          - url: "http://am-webhook.external/webhook"
+    route:
+      group_wait: 10s
+      group_interval: 5m
+      receiver: 'null'
+      repeat_interval: 30m
+      
+      routes: 
+        - receiver: am-webhook
+          match_re:
+            app: prometheus-operator

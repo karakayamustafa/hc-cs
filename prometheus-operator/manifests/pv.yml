@@ -1,0 +1,23 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: prometheus-operator-pv
+  labels:
+    type: local
+spec:
+  storageClassName: prometheus-operator
+  capacity:
+    storage: 10Gi
+  local:
+    path: /data/prometheus-operator
+  persistentVolumeReclaimPolicy: Retain
+  accessModes:
+    - ReadWriteOnce
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+              - k8s-3

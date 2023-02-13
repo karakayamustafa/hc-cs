@@ -1,0 +1,31 @@
+ apiVersion: external-secrets.io/v1alpha1
+ kind: ExternalSecret
+ metadata:
+   name: alertmanager
+ spec:
+   secretStoreRef:
+     name: vault-backend
+     kind: SecretStore
+   target:
+     name: alertmanager-auth
+   data:
+   - secretKey: auth
+     remoteRef:
+       key: alertmanager/auth
+       property: cred
+---
+ apiVersion: external-secrets.io/v1alpha1
+ kind: ExternalSecret
+ metadata:
+   name: prometheus
+ spec:
+   secretStoreRef:
+     name: vault-backend
+     kind: SecretStore
+   target:
+     name: prometheus-auth
+   data:
+   - secretKey: auth
+     remoteRef:
+       key: prometheus/auth
+       property: cred
