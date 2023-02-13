@@ -9,7 +9,7 @@ jobs:
   terraform:
     name: "Terraform"
     runs-on: self-hosted
-    environment: terraform.env
+    environment: terraform-env
     permissions:
       pull-requests: write
 
@@ -33,9 +33,7 @@ jobs:
         id: init
         env :
           GOOGLE_APPLICATION_CREDENTIALS : ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-        run: |
-          echo $GOOGLE_APPLICATION_CREDENTIALS
-          terraform -chdir=${{ matrix.folder }} init
+        run: terraform -chdir=${{ matrix.folder }} init
       
       - name: Terraform Validate
         id: validate
