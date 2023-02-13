@@ -41,7 +41,6 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        if: github.event_name == 'pull_request'
         run: terraform -chdir=${{ matrix.folder }} plan -no-color -input=false tf.plan
 
       - name: Terraform Apply
