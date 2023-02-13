@@ -31,6 +31,8 @@ jobs:
 
       - name: Terraform Init
         id: init
+        env :
+          GOOGLE_APPLICATION_CREDENTIALS : ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         run: terraform -chdir=${{ matrix.folder }} init
       
       - name: Terraform Validate
