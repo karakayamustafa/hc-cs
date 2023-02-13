@@ -9,6 +9,7 @@ jobs:
   terraform:
     name: "Terraform"
     runs-on: self-hosted
+    environment: terraform.env
     permissions:
       pull-requests: write
 
