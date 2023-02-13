@@ -41,8 +41,12 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform -chdir=${{ matrix.folder }} plan -no-color -input=false tf.plan
+        env :
+          GOOGLE_APPLICATION_CREDENTIALS : ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+        run: terraform -chdir=${{ matrix.folder }} plan -no-color -input=false -out tf.plan
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        env :
+          GOOGLE_APPLICATION_CREDENTIALS : ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         run: terraform -chdir=${{ matrix.folder }} apply -input=false tf.plan
